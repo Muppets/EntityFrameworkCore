@@ -255,6 +255,19 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
             Assert.Equal(expectedMessage, logEntry.Message);
         }
 
+        protected virtual void VerifyWarnings(string[] expectedMessages, IMutableModel model, LogLevel level = LogLevel.Warning)
+        {
+            Validate(model);
+            var logEntries = LoggerFactory.Log.Where(l => l.Level == level);
+            Assert.Equal(expectedMessages.Length, logEntries.Count());
+
+            int count = 0;
+            foreach (var logEntry in logEntries)
+            {
+                Assert.Equal(expectedMessages[count++], logEntry.Message);
+            }
+        }
+
         protected virtual void VerifyError(string expectedMessage, IMutableModel model)
         {
             var message = Assert.Throws<InvalidOperationException>(() => Validate(model)).Message;
@@ -296,7 +309,7 @@ namespace Microsoft.EntityFrameworkCore.Infrastructure
             var conventionSet = new ConventionSet();
 
             var dependencies = CreateDependencies(sensitiveDataLoggingEnabled);
-            conventionSet.ModelFinalizedConventions.Add(new TypeMappingConvention(dependencies));
+            conventionSet.ModelFinalizingConventions.Add(new TypeMappingConvention(dependencies));
             conventionSet.ModelFinalizedConventions.Add(new ValidatingConvention(dependencies));
 
             return new ModelBuilder(conventionSet);

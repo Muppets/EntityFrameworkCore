@@ -38,17 +38,16 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
             }
 
             var entityType = property.DeclaringEntityType;
-
             foreach (var fk in entityType.FindForeignKeys(pk.Properties))
             {
                 if (!fk.PrincipalKey.IsPrimaryKey()
-                    || fk.PrincipalEntityType == fk.DeclaringEntityType)
+                    || fk.PrincipalEntityType == fk.DeclaringEntityType
+                    || !fk.IsUnique)
                 {
                     continue;
                 }
 
                 var principalEntityType = fk.PrincipalEntityType;
-                var declaringEntityType = fk.DeclaringEntityType;
                 if (table == principalEntityType.GetTableName()
                     && schema == principalEntityType.GetSchema())
                 {

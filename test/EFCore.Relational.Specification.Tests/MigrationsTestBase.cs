@@ -1446,7 +1446,8 @@ be found in the docs.";
             var conventionSet = new ConventionSet();
 
             var dependencies = Fixture.TestHelpers.CreateContextServices().GetRequiredService<ProviderConventionSetBuilderDependencies>();
-            conventionSet.ModelFinalizedConventions.Add(new TypeMappingConvention(dependencies));
+            conventionSet.ModelFinalizingConventions.Add(new TypeMappingConvention(dependencies));
+            conventionSet.ModelFinalizedConventions.Add(new RelationalModelConvention());
 
             return new ModelBuilder(conventionSet);
         }
