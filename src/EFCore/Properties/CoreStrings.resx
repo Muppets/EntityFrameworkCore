@@ -1269,4 +1269,26 @@
   <data name="LastUsedWithoutOrderBy" xml:space="preserve">
     <value>Queries performing '{method}' operation must have a deterministic sort order. Rewrite the query to apply an OrderBy clause on the sequence before calling '{method}'.</value>
   </data>
+  <data name="ImmediateConventionScopeCannotBeRunAgain" xml:space="preserve">
+    <value>Immediate convention scope cannot be run again.</value>
+  </data>
+  <data name="UnknownTypeInfo" xml:space="preserve">
+    <value>Unknown type info.</value>
+  </data>
+  <data name="UnhandledExpressionNode" xml:space="preserve">
+    <value>Unhandled expression node type '{nodeType}'.</value>
+  </data>
+  <data name="UnhandledMemberBinding" xml:space="preserve">
+    <value>Unhandled member binding type '{bindingType}'.</value>
+  </data>
+  <data name="InvalidIncludePath" xml:space="preserve">
+    <value>Invalid include path '{navigationChain}', couldn't find navigation for '{navigationName}'.</value>
+  </data>
+  <data name="InvalidLambdaExpressionInsideInclude" xml:space="preserve">
+    <value>Lambda expression used inside Include is not valid.</value>
+  </data>
+  <data name="IncludeOnNonEntity" xml:space="preserve">
+    <value>Include has been used on non entity queryable.</value>
+  </data>
+  
 </root>

@@ -2372,6 +2372,54 @@ namespace Microsoft.EntityFrameworkCore.Diagnostics
                 GetString("LastUsedWithoutOrderBy", nameof(method)),
                 method);
 
+        /// <summary>
+        ///     Immediate convention scope cannot be run again.
+        /// </summary>
+        public static string ImmediateConventionScopeCannotBeRunAgain
+            => GetString("ImmediateConventionScopeCannotBeRunAgain");
+
+        /// <summary>
+        ///     Unknown type info.
+        /// </summary>
+        public static string UnknownTypeInfo
+            => GetString("UnknownTypeInfo");
+
+        /// <summary>
+        ///     Unhandled expression node type '{nodeType}'.
+        /// </summary>
+        public static string UnhandledExpressionNode([CanBeNull] object nodeType)
+            => string.Format(
+                GetString("UnhandledExpressionNode", nameof(nodeType)),
+                nodeType);
+
+        /// <summary>
+        ///     Unhandled member binding type '{bindingType}'.
+        /// </summary>
+        public static string UnhandledMemberBinding([CanBeNull] object bindingType)
+            => string.Format(
+                GetString("UnhandledMemberBinding", nameof(bindingType)),
+                bindingType);
+
+        /// <summary>
+        ///     Invalid include path '{navigationChain}', couldn't find navigation for '{navigationName}'.
+        /// </summary>
+        public static string InvalidIncludePath([CanBeNull] object navigationChain, [CanBeNull] object navigationName)
+            => string.Format(
+                GetString("InvalidIncludePath", nameof(navigationChain), nameof(navigationChain)),
+                navigationChain, navigationName);
+
+        /// <summary>
+        ///     Lambda expression used inside Include is not valid.
+        /// </summary>
+        public static string InvalidLambdaExpressionInsideInclude
+            => GetString("InvalidLambdaExpressionInsideInclude");
+
+        /// <summary>
+        ///     Include has been used on non entity queryable.
+        /// </summary>
+        public static string IncludeOnNonEntity
+            => GetString("IncludeOnNonEntity");
+
         private static string GetString(string name, params string[] formatterNames)
         {
             var value = _resourceManager.GetString(name);
