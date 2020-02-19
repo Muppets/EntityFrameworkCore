@@ -2405,7 +2405,7 @@ namespace Microsoft.EntityFrameworkCore.Diagnostics
         /// </summary>
         public static string InvalidIncludePath([CanBeNull] object navigationChain, [CanBeNull] object navigationName)
             => string.Format(
-                GetString("InvalidIncludePath", nameof(navigationChain), nameof(navigationChain)),
+                GetString("InvalidIncludePath", nameof(navigationChain), nameof(navigationName)),
                 navigationChain, navigationName);
 
         /// <summary>
@@ -2415,10 +2415,170 @@ namespace Microsoft.EntityFrameworkCore.Diagnostics
             => GetString("InvalidLambdaExpressionInsideInclude");
 
         /// <summary>
+        ///     Unable to convert queryable method to enumerable method.
+        /// </summary>
+        public static string CannotConvertQueryableToEnumerableMethod
+            => GetString("CannotConvertQueryableToEnumerableMethod");
+
+        /// <summary>
         ///     Include has been used on non entity queryable.
         /// </summary>
         public static string IncludeOnNonEntity
             => GetString("IncludeOnNonEntity");
+
+        /// <summary>
+        ///     Invalid type conversion when specifying include.
+        /// </summary>
+        public static string InvalidTypeConversationWithInclude
+            => GetString("InvalidTypeConversationWithInclude");
+
+        /// <summary>
+        ///      Invalid expression type stored in NavigationMap.
+        /// </summary>
+        public static string InvalidExpressionTypeStoredInNavigationMap
+            => GetString("InvalidExpressionTypeStoredInNavigationMap");
+
+        /// <summary>
+        ///      The Include path '{navigationName}->{inverseNavigationName}' results in a cycle. Cycles are not allowed in no-tracking queries. Either use a tracking query or remove the cycle.
+        /// </summary>
+        public static string IncludeWithCycle([CanBeNull] object navigationName, [CanBeNull] object inverseNavigationName)
+            => string.Format(
+                GetString("IncludeWithCycle", nameof(navigationName), nameof(inverseNavigationName)),
+                navigationName, inverseNavigationName);
+
+        /// <summary>
+        ///      Unhandled method '{methodName}'.
+        /// </summary>
+        public static string UnhandledMethod([CanBeNull] object methodName)
+            => string.Format(
+                GetString("UnhandledMethod", nameof(methodName)),
+                methodName);
+
+        /// <summary>
+        ///      Runtime parameter extraction lambda must have one QueryContext parameter.
+        /// </summary>
+        public static string RuntimeParameterMissingParameter
+            => GetString("RuntimeParameterMissingParameter");
+
+        /// <summary>
+        ///      Sequence contains no elements.
+        /// </summary>
+        public static string SequenceContainsNoElements
+            => GetString("SequenceContainsNoElements");
+
+        /// <summary>
+        ///      Sequence contains more than one element.
+        /// </summary>
+        public static string SequenceContainsMoreThanOneElement
+            => GetString("SequenceContainsMoreThanOneElement");
+
+        /// <summary>
+        ///      A tracking query projects owned entity without corresponding owner in result. Owned entities cannot be tracked without their owner. Either include the owner entity in the result or make query non-tracking using AsNoTracking().
+        /// </summary>
+        public static string OwnedEntitiesCannotBeTrackedWithoutTheirOwner
+            => GetString("OwnedEntitiesCannotBeTrackedWithoutTheirOwner");
+
+        /// <summary>
+        ///      Calling {visitMethodName} is not allowed. Visit expression manually for relevant part.
+        /// </summary>
+        public static string VisitIsNotAllowed([CanBeNull] object visitMethodName)
+            => string.Format(
+                GetString("VisitIsNotAllowed", nameof(visitMethodName)),
+                visitMethodName);
+
+        /// <summary>
+        ///      Non-embedded IncludeExpression is not supported: {expression}
+        /// </summary>
+        public static string NonEmbeddedIncludeNotSupported([CanBeNull] object expression)
+            => string.Format(
+                GetString("NonEmbeddedIncludeNotSupported", nameof(expression)),
+                expression);
+
+        /// <summary>
+        ///      Null TypeMapping in Sql Tree.
+        /// </summary>
+        public static string NullTypeMappingInSqlTree
+            => GetString("NullTypeMappingInSqlTree");
+
+        /// <summary>
+        ///      Called EntityProjectionExpression.{methodName}() with incorrect {interfaceType}. EntityType:{entityType}, {entityValue}
+        /// </summary>
+        public static string EntityProjectionExpressionCalledWithIncorrectInterface([CanBeNull] object methodName, [CanBeNull] object interfaceType, [CanBeNull] object entityType, [CanBeNull] object entityValue)
+            => string.Format(
+                GetString("EntityProjectionExpressionCalledWithIncorrectInterface", nameof(methodName), nameof(interfaceType), nameof(entityType), nameof(entityValue)),
+                methodName, interfaceType, entityType, entityValue);
+
+        /// <summary>
+        ///      Navigation '{entityType}.{navigationName}' doesn't point to an embedded entity.
+        /// </summary>
+        public static string NavigationPropertyIsNotAnEmbeddedEntity([CanBeNull] object entityType, [CanBeNull] object navigationName)
+            => string.Format(
+                GetString("NavigationPropertyIsNotAnEmbeddedEntity", nameof(entityType), nameof(navigationName)),
+                entityType, navigationName);
+
+        /// <summary>
+        ///      Cosmos Sql API does not support Offset without Limit.
+        /// </summary>
+        public static string CosmosOffsetRequiresLimit
+            => GetString("CosmosOffsetRequiresLimit");
+
+        /// <summary>
+        ///      Cosmos Sql API does not support Reverse without Limit or Offset.
+        /// </summary>
+        public static string CosmosReverseRequiresOffsetOrLimit
+            => GetString("CosmosReverseRequiresOffsetOrLimit");
+
+        /// <summary>
+        ///      Unsupported Binary operator type specified.
+        /// </summary>
+        public static string UnsupportedBinaryOperator
+            => GetString("UnsupportedBinaryOperator");
+
+        /// <summary>
+        ///      VisitChildren must be overridden in class deriving from SqlExpression.
+        /// </summary>
+        public static string VisitChildrenMustBeOverridden
+            => GetString("VisitChildrenMustBeOverridden");
+
+        /// <summary>
+        ///      Incorrect operatorType for SqlBinaryExpression.
+        /// </summary>
+        public static string IncorrectOperatorType
+            => GetString("IncorrectOperatorType");
+
+        /// <summary>
+        ///      Unsupported Unary operator type specified.
+        /// </summary>
+        public static string UnsupportedUnary
+            => GetString("UnsupportedUnary");
+
+        /// <summary>
+        ///      Unhandled enum value '{enumValue}'.
+        /// </summary>
+        public static string UnhandledEnumValue([CanBeNull] object enumValue)
+            => string.Format(
+                GetString("UnhandledEnumValue", nameof(enumValue)),
+                enumValue);
+
+        /// <summary>
+        ///      EF.Property called with wrong property name.
+        /// </summary>
+        public static string EFPropertyCalledWithWrongPropertyName
+            => GetString("EFPropertyCalledWithWrongPropertyName");
+
+        /// <summary>
+        ///      Invalid {state} encountered.
+        /// </summary>
+        public static string InvalidStateEncountered([CanBeNull] object state)
+            => string.Format(
+                GetString("InvalidStateEncountered", nameof(state)),
+                state);
+
+        /// <summary>
+        ///      Cannot apply DefaultIfEmpty after a client-evaluated projection.
+        /// </summary>
+        public static string DefaultIfEmptyAppliedAfterProjection
+            => GetString("DefaultIfEmptyAppliedAfterProjection");
 
         private static string GetString(string name, params string[] formatterNames)
         {

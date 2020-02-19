@@ -1339,7 +1339,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
                 }
             }
 
-            throw new InvalidOperationException("Unable to convert queryable method to enumerable method.");
+            throw new InvalidOperationException(CoreStrings.CannotConvertQueryableToEnumerableMethod);
 
             static bool IsNumericType(Type type)
             {
@@ -1483,7 +1483,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
                         entityType = entityType.GetTypesInHierarchy().FirstOrDefault(et => et.ClrType == convertedType);
                         if (entityType == null)
                         {
-                            throw new InvalidOperationException("Invalid type conversion when specifying include.");
+                            throw new InvalidOperationException(CoreStrings.InvalidTypeConversationWithInclude);
                         }
                     }
 

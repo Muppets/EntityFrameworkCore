@@ -217,8 +217,7 @@ namespace Microsoft.EntityFrameworkCore.Cosmos.Query.Internal
                         if (includeExpression.Navigation.IsOnDependent
                             || includeExpression.Navigation.ForeignKey.DeclaringEntityType.IsDocumentRoot())
                         {
-                            throw new InvalidOperationException(
-                                "Non-embedded IncludeExpression is not supported: " + includeExpression.Print());
+                            throw new InvalidOperationException(CoreStrings.NonEmbeddedIncludeNotSupported(includeExpression.Print()));
                         }
 
                         _pendingIncludes.Add(includeExpression);
@@ -298,8 +297,7 @@ namespace Microsoft.EntityFrameworkCore.Cosmos.Query.Internal
                         if (includeExpression.Navigation.IsOnDependent
                             || includeExpression.Navigation.ForeignKey.DeclaringEntityType.IsDocumentRoot())
                         {
-                            throw new InvalidOperationException(
-                                "Non-embedded IncludeExpression is not supported: " + includeExpression.Print());
+                            throw new InvalidOperationException(CoreStrings.NonEmbeddedIncludeNotSupported(includeExpression.Print()));
                         }
 
                         var isFirstInclude = _pendingIncludes.Count == 0;

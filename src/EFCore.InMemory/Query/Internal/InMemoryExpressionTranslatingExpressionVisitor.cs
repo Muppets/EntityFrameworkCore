@@ -383,7 +383,7 @@ namespace Microsoft.EntityFrameworkCore.InMemory.Query.Internal
                     return result;
                 }
 
-                throw new InvalidOperationException("EF.Property called with wrong property name.");
+                throw new InvalidOperationException(CoreStrings.EFPropertyCalledWithWrongPropertyName);
             }
 
             // EF Indexer property
@@ -430,7 +430,7 @@ namespace Microsoft.EntityFrameworkCore.InMemory.Query.Internal
                                 nameof(Enumerable.Max) => EnumerableMethods.GetMaxWithSelector(selector.ReturnType),
                                 nameof(Enumerable.Min) => EnumerableMethods.GetMinWithSelector(selector.ReturnType),
                                 nameof(Enumerable.Sum) => EnumerableMethods.GetSumWithSelector(selector.ReturnType),
-                                _ => throw new InvalidOperationException("Invalid Aggregate Operator encountered."),
+                                _ => throw new InvalidOperationException(CoreStrings.InvalidStateEncountered("Aggregate Operator")),
                             };
                     }
 

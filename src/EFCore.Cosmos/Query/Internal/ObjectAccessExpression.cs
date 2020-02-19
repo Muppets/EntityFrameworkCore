@@ -4,6 +4,7 @@
 using System;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Utilities;
@@ -30,7 +31,8 @@ namespace Microsoft.EntityFrameworkCore.Cosmos.Query.Internal
             if (Name == null)
             {
                 throw new InvalidOperationException(
-                    $"Navigation '{navigation.DeclaringEntityType.DisplayName()}.{navigation.Name}' doesn't point to an embedded entity.");
+                    CoreStrings.NavigationPropertyIsNotAnEmbeddedEntity(
+                        navigation.DeclaringEntityType.DisplayName(), navigation.Name));
             }
 
             Navigation = navigation;

@@ -452,8 +452,7 @@ namespace Microsoft.EntityFrameworkCore.Cosmos.Query.Internal
 
                     if (!includeExpression.Navigation.IsEmbedded())
                     {
-                        throw new InvalidOperationException(
-                            "Non-embedded IncludeExpression is not supported: " + includeExpression.Print());
+                        throw new InvalidOperationException(CoreStrings.NonEmbeddedIncludeNotSupported(includeExpression.Print()));
                     }
 
                     _includedNavigations.Push(includeExpression.Navigation);

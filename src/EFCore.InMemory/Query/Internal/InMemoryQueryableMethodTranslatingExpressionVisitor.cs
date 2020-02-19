@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using JetBrains.Annotations;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -1147,7 +1148,7 @@ namespace Microsoft.EntityFrameworkCore.InMemory.Query.Internal
                     nameof(Enumerable.Max) => EnumerableMethods.GetMaxWithSelector(selector.ReturnType),
                     nameof(Enumerable.Min) => EnumerableMethods.GetMinWithSelector(selector.ReturnType),
                     nameof(Enumerable.Sum) => EnumerableMethods.GetSumWithSelector(selector.ReturnType),
-                    _ => throw new InvalidOperationException("Invalid Aggregate Operator encountered."),
+                    _ => throw new InvalidOperationException(CoreStrings.InvalidStateEncountered("Aggregate Operator")),
                 };
         }
 
