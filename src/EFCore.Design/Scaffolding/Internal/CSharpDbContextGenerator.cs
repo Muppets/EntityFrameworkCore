@@ -265,6 +265,7 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.MaxIdentifierLength);
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.CheckConstraints);
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.Tables);
+            RemoveAnnotation(ref annotations, RelationalAnnotationNames.Views);
             RemoveAnnotation(ref annotations, ScaffoldingAnnotationNames.DatabaseName);
             RemoveAnnotation(ref annotations, ScaffoldingAnnotationNames.EntityTypeErrors);
 
@@ -367,6 +368,7 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.Comment);
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.Schema);
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.TableMappings);
+            RemoveAnnotation(ref annotations, RelationalAnnotationNames.ViewMappings);
             RemoveAnnotation(ref annotations, ScaffoldingAnnotationNames.DbSetName);
 
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.ViewDefinition);
@@ -456,9 +458,12 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
         {
             if (key == null)
             {
-                var line = new List<string> { $".{nameof(EntityTypeBuilder.HasNoKey)}()" };
+                if (!useDataAnnotations)
+                {
+                    var line = new List<string> { $".{nameof(EntityTypeBuilder.HasNoKey)}()" };
 
-                AppendMultiLineFluentApi(entityType, line);
+                    AppendMultiLineFluentApi(entityType, line);
+                }
 
                 return;
             }
@@ -617,6 +622,7 @@ namespace Microsoft.EntityFrameworkCore.Scaffolding.Internal
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.ComputedColumnSql);
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.IsFixedLength);
             RemoveAnnotation(ref annotations, RelationalAnnotationNames.TableColumnMappings);
+            RemoveAnnotation(ref annotations, RelationalAnnotationNames.ViewColumnMappings);
             RemoveAnnotation(ref annotations, ScaffoldingAnnotationNames.ColumnOrdinal);
 
             if (!useDataAnnotations)

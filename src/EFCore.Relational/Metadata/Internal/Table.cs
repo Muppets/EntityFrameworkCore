@@ -15,7 +15,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
     ///     any release. You should only use it directly in your code with extreme caution and knowing that
     ///     doing so can result in application failures when updating to a new Entity Framework Core release.
     /// </summary>
-    public class Table : Annotatable, ITable
+    public class Table : TableBase, ITable
     {
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -24,16 +24,17 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Table([NotNull] string name, [CanBeNull] string schema)
+            : base(name, schema)
         {
-            Schema = schema;
-            Name = name;
         }
 
-        /// <inheritdoc/>
-        public virtual string Schema { get; }
-
-        /// <inheritdoc/>
-        public virtual string Name { get; }
+        /// <summary>
+        ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
+        ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
+        ///     any release. You should only use it directly in your code with extreme caution and knowing that
+        ///     doing so can result in application failures when updating to a new Entity Framework Core release.
+        /// </summary>
+        public virtual SortedSet<TableMapping> EntityTypeMappings { get; } = new SortedSet<TableMapping>(TableMappingComparer.Instance);
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -41,37 +42,10 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public virtual SortedSet<ITableMapping> EntityTypeMappings { get; } = new SortedSet<ITableMapping>(TableMappingComparer.Instance);
-
-        /// <summary>
-        ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
-        ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
-        ///     any release. You should only use it directly in your code with extreme caution and knowing that
-        ///     doing so can result in application failures when updating to a new Entity Framework Core release.
-        /// </summary>
-        public virtual SortedDictionary<string, IColumn> Columns { get; } = new SortedDictionary<string, IColumn>(StringComparer.Ordinal);
+        public virtual SortedDictionary<string, Column> Columns { get; } = new SortedDictionary<string, Column>(StringComparer.Ordinal);
 
         /// <inheritdoc/>
         public virtual bool IsMigratable { get; set; }
-
-        /// <inheritdoc/>
-        public virtual bool IsSplit { get; set; }
-
-        /// <summary>
-        ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
-        ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
-        ///     any release. You should only use it directly in your code with extreme caution and knowing that
-        ///     doing so can result in application failures when updating to a new Entity Framework Core release.
-        /// </summary>
-        public virtual SortedDictionary<IEntityType, IEnumerable<IForeignKey>> InternalForeignKeys { get; [param: NotNull] set; }
-
-        /// <summary>
-        ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
-        ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
-        ///     any release. You should only use it directly in your code with extreme caution and knowing that
-        ///     doing so can result in application failures when updating to a new Entity Framework Core release.
-        /// </summary>
-        public virtual SortedDictionary<IEntityType, IEnumerable<IForeignKey>> ReferencingInternalForeignKeys { get; [param: NotNull] set; }
 
         /// <inheritdoc/>
         public virtual IColumn FindColumn(string name)
@@ -115,13 +89,18 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
             get => EntityTypeMappings;
         }
 
-        IEnumerable<IForeignKey> ITable.GetInternalForeignKeys(IEntityType entityType)
+        /// <inheritdoc/>
+        IColumnBase ITableBase.FindColumn(string name) => FindColumn(name);
+
+        /// <inheritdoc/>
+        IEnumerable<IForeignKey> ITableBase.GetInternalForeignKeys(IEntityType entityType)
             => InternalForeignKeys != null
                 && InternalForeignKeys.TryGetValue(entityType, out var foreignKeys)
                 ? foreignKeys
                 : null;
 
-        IEnumerable<IForeignKey> ITable.GetReferencingInternalForeignKeys(IEntityType entityType)
+        /// <inheritdoc/>
+        IEnumerable<IForeignKey> ITableBase.GetReferencingInternalForeignKeys(IEntityType entityType)
             => ReferencingInternalForeignKeys != null
                 && ReferencingInternalForeignKeys.TryGetValue(entityType, out var foreignKeys)
                 ? foreignKeys

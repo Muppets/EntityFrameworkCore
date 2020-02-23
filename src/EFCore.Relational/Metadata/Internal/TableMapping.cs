@@ -24,7 +24,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
         /// </summary>
         public TableMapping(
             [NotNull] IEntityType entityType,
-            [NotNull] ITable table,
+            [NotNull] Table table,
             bool includesDerivedTypes)
         {
             EntityType = entityType;
